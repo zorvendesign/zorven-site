@@ -1,0 +1,739 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#09090b"><title>Maison Aurèle</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://ajax.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+<style>
+:root{--bg:#09090b;--bg2:#111;--card:#151517;--txt:#fafafa;--txt2:#a1a1aa;--gold:#c9a227;--border:rgba(255,255,255,.06);--green:#10b981;--green2:#34d399;--red:#ef4444;--f1:'Playfair Display',serif;--f2:'Jost',sans-serif;--f3:'Orbitron',sans-serif;--f4:'Roboto Mono',monospace}
+.light-mode{--bg:#f8f8f8;--bg2:#fff;--card:#fff;--txt:#1a1a1a;--txt2:#666;--border:rgba(0,0,0,.08)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--f2);background:var(--bg);color:var(--txt);min-height:100dvh;line-height:1.6;font-weight:300;transition:background .3s,color .3s}
+.hdr{position:sticky;top:0;z-index:99;padding:16px;background:linear-gradient(var(--bg),var(--bg) 70%,transparent)}
+.hdr-in{max-width:500px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--f1);font-size:1.5rem;cursor:pointer}.logo span{display:block;font-size:.55rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}
+.lang{display:flex;gap:2px;background:var(--bg2);padding:3px;border-radius:99px;border:1px solid var(--border)}
+.lang button{width:30px;height:30px;border:none;border-radius:50%;background:0 0;cursor:pointer;font-size:.85rem}.lang .on{background:var(--gold)}
+.main{max-width:500px;margin:0 auto;padding:0 16px 160px}
+.sec{margin-bottom:28px}.sec-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}.sec-l{flex:1;height:1px;background:var(--border)}
+.sec-t{font-family:var(--f1);font-size:.7rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-style:italic;text-shadow:0 0 10px rgba(201,162,39,.6),0 0 20px rgba(201,162,39,.4),0 0 30px rgba(201,162,39,.2);animation:glow-text 2s ease-in-out infinite alternate}
+@keyframes glow-text{from{text-shadow:0 0 10px rgba(201,162,39,.6),0 0 20px rgba(201,162,39,.4)}to{text-shadow:0 0 15px rgba(201,162,39,.8),0 0 25px rgba(201,162,39,.5),0 0 35px rgba(201,162,39,.3)}}
+.cards{display:flex;flex-direction:column;gap:10px}
+.card{background:var(--card);border-radius:14px;border:1px solid var(--border);transition:.3s;overflow:hidden}
+.card.featured{border-color:var(--gold);box-shadow:0 0 20px rgba(201,162,39,.2)}
+.card.featured::before{content:'⭐ PLAT DU JOUR';display:block;background:var(--gold);color:var(--bg);text-align:center;padding:6px;font-size:.65rem;font-weight:600;letter-spacing:.1em}
+.card-in{display:flex;gap:12px;padding:12px;cursor:pointer}
+.card-img{width:75px;height:75px;border-radius:10px;overflow:hidden;background:var(--bg2);flex-shrink:0;position:relative;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1) 0%,transparent 50%);pointer-events:none}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s,filter .4s;filter:saturate(1.1) contrast(1.05)}
+.card:hover .card-img img,.card:active .card-img img{transform:scale(1.08);filter:saturate(1.2) contrast(1.1) brightness(1.05)}
+.card-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.card-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:4px}.card-name{font-family:var(--f1);font-size:1rem}.card-price{color:var(--gold);font-size:.9rem;font-weight:500}
+.card-desc{font-size:.72rem;color:var(--txt2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-ar-btn{display:flex;align-items:center;justify-content:center;margin:0 12px 6px;padding:10px 16px;background:linear-gradient(135deg,var(--gold),#e8c547);border-radius:99px;cursor:pointer;animation:pulse-ar 2s infinite}
+.card-ar-btn:active{transform:scale(.97)}.card-ar-btn span{color:var(--bg);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+@keyframes pulse-ar{0%,100%{box-shadow:0 0 0 0 rgba(201,162,39,.4)}50%{box-shadow:0 0 0 6px rgba(201,162,39,0)}}
+.social-proof{text-align:center;padding:0 12px 12px;font-size:.7rem;color:var(--green);font-weight:500}
+.social-proof::before{content:'🔥 '}
+.card-actions{display:flex;align-items:center;justify-content:space-between;padding:0 12px 12px;gap:10px}
+.qty-ctrl{display:flex;align-items:center;gap:8px;background:var(--bg2);border-radius:99px;padding:4px}
+.qty-btn{width:32px;height:32px;border:none;border-radius:50%;background:var(--border);color:var(--txt);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.qty-btn:active{background:var(--gold);color:var(--bg)}.qty-btn.minus{background:transparent}
+.qty-num{min-width:24px;text-align:center;font-weight:500;font-size:1rem}
+.btn-add{flex:1;padding:10px 16px;background:var(--gold);border:none;border-radius:99px;color:var(--bg);font-family:var(--f2);font-size:.8rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-add svg{width:18px;height:18px}.btn-add:active{transform:scale(.97)}.btn-add.added{background:var(--green)}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:12px 16px calc(12px + env(safe-area-inset-bottom));z-index:100;transform:translateY(100%);transition:.3s}
+.cart-bar.show{transform:translateY(0)}.cart-bar-in{max-width:500px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.cart-info{flex:1}.cart-count{font-size:.75rem;color:var(--txt2)}.cart-total{font-size:1.2rem;font-weight:500;color:var(--gold)}
+.btn-cart{padding:14px 28px;background:var(--gold);border:none;border-radius:12px;color:var(--bg);font-family:var(--f2);font-size:.85rem;font-weight:600;cursor:pointer;text-transform:uppercase;letter-spacing:.05em}
+.btn-cart:active{transform:scale(.97)}
+.order-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;opacity:0;visibility:hidden;transition:.3s;display:flex;align-items:flex-end;justify-content:center}
+.order-modal.open{opacity:1;visibility:visible}
+.order-content{background:var(--bg);width:100%;max-width:500px;max-height:85vh;border-radius:20px 20px 0 0;overflow:hidden;transform:translateY(100%);transition:.3s}
+.order-modal.open .order-content{transform:translateY(0)}
+.order-hdr{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.order-title{font-family:var(--f1);font-size:1.2rem}
+.order-body{padding:20px;overflow-y:auto;max-height:60vh}
+.order-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}.order-item:last-child{border:none}
+.order-item-qty{background:var(--gold);color:var(--bg);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem}
+.order-item-name{flex:1;font-size:.95rem}.order-item-price{color:var(--gold);font-weight:500}
+.order-footer{padding:20px;border-top:1px solid var(--border);background:var(--card)}
+.order-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.order-total-label{font-size:1rem;color:var(--txt2)}.order-total-val{font-size:1.5rem;font-weight:600;color:var(--gold)}
+.order-hint{text-align:center;color:var(--txt2);font-size:.8rem;padding:8px;background:var(--bg2);border-radius:8px;margin-bottom:12px}
+.btn-validate{width:100%;padding:14px;background:var(--green);border:none;border-radius:10px;color:#fff;font-family:var(--f2);font-size:.9rem;font-weight:600;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-validate:active{transform:scale(.97)}
+.btn-clear{width:100%;padding:12px;background:transparent;border:1px solid var(--red);color:var(--red);border-radius:10px;font-size:.8rem;cursor:pointer;font-family:var(--f2)}
+
+.dtl{position:fixed;inset:0;background:var(–bg);z-index:200;opacity:0;visibility:hidden;transition:.3s;overflow-y:auto}.dtl.open{opacity:1;visibility:visible}
+.dtl-hero{position:relative;aspect-ratio:1;max-height:55vh;background:var(–bg2)}.dtl-hero img{width:100%;height:100%;object-fit:cover;filter:saturate(1.1) contrast(1.05)}
+.dtl-hero::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(transparent,var(–bg))}
+.btn-back{position:absolute;top:16px;left:16px;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid var(–border);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5}
+.btn-back svg{width:20px;height:20px}
+.dtl-body{padding:0 20px 50px;max-width:500px;margin:-40px auto 0;position:relative;z-index:2}
+.dtl-name{font-family:var(–f1);font-size:1.7rem;margin-bottom:6px}
+.dtl-price{color:var(–gold);font-size:1.1rem;margin-bottom:16px}
+.dtl-line{width:30px;height:1px;background:var(–gold);margin-bottom:16px;opacity:.4}
+.dtl-desc{color:var(–txt2);line-height:1.75;margin-bottom:20px;font-size:.92rem}
+
+/* NOUVEAU: Section Ajouter au panier dans détails */
+.dtl-cart-section{background:var(–card);border:1px solid var(–border);border-radius:12px;padding:16px;margin-bottom:20px}
+.dtl-cart-row{display:flex;align-items:center;gap:12px}
+.dtl-qty-ctrl{display:flex;align-items:center;gap:10px;background:var(–bg2);border-radius:99px;padding:6px}
+.dtl-qty-btn{width:36px;height:36px;border:none;border-radius:50%;background:var(–border);color:var(–txt);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.dtl-qty-btn:active{background:var(–gold);color:var(–bg)}
+.dtl-qty-btn.minus{background:transparent}
+.dtl-qty-num{min-width:28px;text-align:center;font-weight:600;font-size:1.1rem}
+.dtl-btn-add{flex:1;padding:14px 20px;background:var(–gold);border:none;border-radius:99px;color:var(–bg);font-family:var(–f2);font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.dtl-btn-add:active{transform:scale(.97)}
+.dtl-btn-add.added{background:var(–green)}
+.dtl-btn-add svg{width:20px;height:20px}
+
+.origin-card{background:linear-gradient(135deg,rgba(201,162,39,.08),rgba(201,162,39,.02));border:1px solid rgba(201,162,39,.2);border-radius:12px;padding:14px;margin-bottom:20px}
+.origin-title{font-size:.65rem;color:var(–gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.origin-title::before{content:‘📍’}
+.origin-info{font-size:.85rem;color:var(–txt);line-height:1.6}
+.origin-badge{display:inline-block;background:var(–gold);color:var(–bg);font-size:.55rem;padding:2px 6px;border-radius:4px;margin-left:6px;font-weight:600}
+
+.cooking-selector{background:var(–card);border:1px solid var(–border);border-radius:12px;padding:16px;margin-bottom:20px}
+.cooking-title{font-size:.75rem;color:var(–txt2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.cooking-title::before{content:‘🔥’}
+.cooking-slider{position:relative;width:100%;height:40px;margin-bottom:8px;touch-action:none}
+.cooking-track{position:absolute;top:50%;left:0;right:0;height:6px;background:linear-gradient(90deg,#ff6b6b,#c44536,#8b2500,#5c1a0a,#3d1a0a);border-radius:3px;transform:translateY(-50%)}
+.cooking-thumb{position:absolute;top:50%;width:28px;height:28px;background:var(–gold);border-radius:50%;transform:translate(-50%,-50%);cursor:grab;box-shadow:0 2px 8px rgba(0,0,0,.3);z-index:2;transition:none}
+.cooking-thumb:active{cursor:grabbing;transform:translate(-50%,-50%) scale(1.1)}
+.cooking-labels{display:flex;justify-content:space-between;font-size:.6rem;color:var(–txt2);padding:0 4px}
+.cooking-labels span{cursor:pointer;padding:4px 6px;border-radius:4px;transition:.2s}
+.cooking-labels span:hover{color:var(–gold)}
+.cooking-labels span.active{color:var(–gold);font-weight:600}
+.cooking-preview{text-align:center;margin-top:12px;padding:10px;background:var(–bg2);border-radius:8px}
+.cooking-preview-text{font-size:.8rem;color:var(–txt)}
+.cooking-preview-temp{font-family:var(–f4);font-size:.65rem;color:var(–txt2);margin-top:4px}
+
+.feedback-btn{display:block;width:100%;text-align:center;padding:10px;color:var(–txt2);font-size:.7rem;cursor:pointer;border:none;background:transparent;margin-top:10px;opacity:.7;transition:.2s}
+.feedback-btn:hover{opacity:1;color:var(–gold)}
+.feedback-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;opacity:0;visibility:hidden;transition:.3s;display:flex;align-items:center;justify-content:center;padding:20px}
+.feedback-modal.open{opacity:1;visibility:visible}
+.feedback-content{background:var(–bg);width:100%;max-width:400px;border-radius:16px;padding:24px;transform:scale(.9);transition:.3s}
+.feedback-modal.open .feedback-content{transform:scale(1)}
+.feedback-title{font-family:var(–f1);font-size:1.1rem;margin-bottom:16px;text-align:center}
+.feedback-textarea{width:100%;height:100px;padding:12px;background:var(–bg2);border:1px solid var(–border);border-radius:10px;color:var(–txt);font-family:var(–f2);font-size:.9rem;resize:none;margin-bottom:12px}
+.feedback-textarea:focus{outline:none;border-color:var(–gold)}
+.feedback-send{width:100%;padding:14px;background:var(–gold);border:none;border-radius:10px;color:var(–bg);font-weight:600;cursor:pointer}
+
+.btn-ar{width:100%;padding:16px;background:var(–gold);border:none;border-radius:12px;color:var(–bg);font-family:var(–f2);font-size:.82rem;font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:.08em}
+
+/* AR VIEW - PAGE FIXE (pas de scroll) */
+.ar{position:fixed;inset:0;background:var(–bg);z-index:300;opacity:0;visibility:hidden;transition:.3s;overflow:hidden}
+.ar.open{opacity:1;visibility:visible}
+.ar-wrap{width:100%;height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:fixed;inset:0}
+.ar-view{flex:1;position:relative;background:radial-gradient(ellipse at 50% 55%,#1a1a1a,var(–bg));overflow:hidden}
+model-viewer{width:100%;height:100%;touch-action:pan-y}
+model-viewer::part(default-ar-button){display:none}
+.btn-x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);border:1px solid var(–border);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5}
+.btn-x svg{width:20px;height:20px}
+.ar-btm{position:absolute;bottom:0;left:0;right:0;padding:16px 16px 28px;background:linear-gradient(transparent,var(–bg) 40%);text-align:center}
+.ar-hint{color:var(–txt2);font-size:.78rem;margin-bottom:12px}
+.btn-go{width:100%;max-width:350px;padding:14px;background:var(–gold);border:none;border-radius:12px;color:var(–bg);font-family:var(–f2);font-size:.78rem;font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:.08em}
+/* LOADER avec auto-hide après timeout */
+.ar-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:10;transition:opacity .3s}
+.ar-loader.hidden{opacity:0;pointer-events:none}
+.ar-spinner{width:50px;height:50px;border:3px solid var(–border);border-top-color:var(–gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
+.ar-load-txt{color:var(–txt2);font-size:.8rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ar-progress{position:absolute;bottom:0;left:0;height:3px;background:var(–gold);transition:width .3s;width:0}
+
+/* ADMIN */
+.admin{position:fixed;inset:0;background:var(–bg);z-index:400;opacity:0;visibility:hidden;transition:.3s;overflow-y:auto}.admin.open{opacity:1;visibility:visible}
+.admin-hdr{padding:20px 16px;border-bottom:1px solid var(–border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(–bg);z-index:10}
+.admin-title{font-family:var(–f3);font-size:1.1rem;font-weight:500;letter-spacing:.05em}
+.admin-body{max-width:600px;margin:0 auto;padding:20px 16px 40px}
+.live-badge{display:flex;align-items:center;gap:6px;font-family:var(–f4);font-size:.65rem;color:var(–green);margin-bottom:20px}
+.live-dot{width:8px;height:8px;background:var(–green);border-radius:50%;animation:pulse-live 1.5s infinite}
+@keyframes pulse-live{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+
+.badges-section{background:var(–card);border-radius:12px;padding:16px;border:1px solid var(–border);margin-bottom:20px}
+.badges-title{font-family:var(–f3);font-size:.8rem;margin-bottom:12px;font-weight:500}
+.badges-grid{display:flex;gap:8px;flex-wrap:wrap}
+.badge-item{width:50px;height:50px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.2rem;position:relative;transition:.3s}
+.badge-item.locked{background:var(–bg2);opacity:.4;filter:grayscale(1)}
+.badge-item.unlocked{background:linear-gradient(135deg,rgba(201,162,39,.3),rgba(201,162,39,.1));border:1px solid var(–gold);animation:badge-glow 2s infinite}
+@keyframes badge-glow{0%,100%{box-shadow:0 0 5px rgba(201,162,39,.3)}50%{box-shadow:0 0 15px rgba(201,162,39,.5)}}
+.badge-item span{font-size:.5rem;color:var(–txt2);margin-top:2px}
+
+.revenue-card{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(52,211,153,.08));border:1px solid rgba(16,185,129,.3);border-radius:16px;padding:20px;margin-bottom:20px}
+.revenue-label{font-family:var(–f4);font-size:.7rem;color:var(–green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.revenue-val{font-family:var(–f3);font-size:2.2rem;color:var(–green2);font-weight:700;margin-bottom:4px}
+.revenue-sub{font-family:var(–f4);font-size:.7rem;color:var(–txt2)}.revenue-sub strong{color:var(–green)}
+
+.feedback-section{background:var(–card);border-radius:12px;padding:16px;border:1px solid var(–border);margin-bottom:16px}
+.feedback-section.has-new{border-color:var(–red);animation:feedback-pulse 2s infinite}
+@keyframes feedback-pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,71,.3)}50%{box-shadow:0 0 0 8px rgba(239,68,71,0)}}
+.feedback-list{max-height:150px;overflow-y:auto}
+.feedback-item{padding:10px;background:var(–bg2);border-radius:8px;margin-bottom:8px;font-size:.8rem}
+.feedback-item-dish{color:var(–gold);font-weight:500;margin-bottom:4px}
+.feedback-item-msg{color:var(–txt2)}
+.feedback-item-time{font-family:var(–f4);font-size:.6rem;color:var(–txt2);margin-top:4px}
+.no-feedback{color:var(–txt2);font-size:.8rem;text-align:center;padding:20px}
+.feedback-actions{display:flex;gap:8px;margin-top:8px}
+.feedback-actions button{flex:1;padding:8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:var(–f2)}
+.btn-mark-read{background:transparent;border:1px solid var(–border);color:var(–txt2)}
+.btn-delete-feedback{background:transparent;border:1px solid var(–red);color:var(–red)}
+
+.featured-section{background:var(–card);border-radius:12px;padding:16px;border:1px solid var(–border);margin-bottom:16px}
+.featured-title{font-family:var(–f3);font-size:.8rem;margin-bottom:12px;font-weight:500;display:flex;align-items:center;gap:8px}
+.featured-title::before{content:‘⭐’}
+.featured-list{display:flex;flex-direction:column;gap:8px}
+.featured-item{display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(–bg2);border-radius:8px}
+.featured-item-name{font-size:.85rem}
+.featured-toggle{width:44px;height:24px;background:var(–border);border-radius:12px;position:relative;cursor:pointer;transition:.3s}
+.featured-toggle.on{background:var(–gold)}
+.featured-toggle::after{content:’’;position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.3s}
+.featured-toggle.on::after{left:22px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(–card);border-radius:12px;padding:16px;border:1px solid var(–border)}
+.stat-val{font-family:var(–f3);font-size:1.6rem;font-weight:500;color:var(–gold);margin-bottom:4px}
+.stat-label{font-family:var(–f4);font-size:.65rem;color:var(–txt2);text-transform:uppercase;letter-spacing:.05em}
+
+.chart-sec{background:var(–card);border-radius:12px;padding:16px;border:1px solid var(–border);margin-bottom:16px}
+.chart-title{font-family:var(–f3);font-size:.8rem;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;font-weight:500}
+.chart-title span{font-family:var(–f4);font-size:.6rem;color:var(–txt2)}
+.chart-bars{display:flex;flex-direction:column;gap:10px}
+.chart-row{display:flex;align-items:center;gap:10px}
+.chart-name{width:90px;font-family:var(–f4);font-size:.7rem;color:var(–txt2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chart-bar-wrap{flex:1;height:22px;background:var(–bg2);border-radius:6px;overflow:hidden;position:relative}
+.chart-bar{height:100%;background:linear-gradient(90deg,var(–gold),#e8c547);border-radius:6px;transition:width .5s}
+.chart-num{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:var(–f4);font-size:.65rem;font-weight:500}
+.top-badge{display:inline-block;background:var(–gold);color:var(–bg);font-family:var(–f3);font-size:.5rem;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.timeline-chart{height:80px;display:flex;align-items:flex-end;gap:3px;margin-top:12px;padding:0 4px}
+.timeline-bar{flex:1;background:linear-gradient(to top,var(–gold),rgba(201,162,39,.3));border-radius:3px 3px 0 0;min-height:4px;transition:height .3s}
+.timeline-labels{display:flex;justify-content:space-between;margin-top:8px;font-family:var(–f4);font-size:.55rem;color:var(–txt2)}
+
+.theme-section{background:var(–card);border-radius:12px;padding:16px;border:1px solid var(–border);margin-bottom:16px}
+.theme-title{font-family:var(–f3);font-size:.8rem;margin-bottom:12px;font-weight:500}
+.theme-toggle{display:flex;gap:8px}
+.theme-btn{flex:1;padding:12px;border:1px solid var(–border);border-radius:8px;background:transparent;color:var(–txt);font-family:var(–f4);font-size:.75rem;cursor:pointer;transition:.2s}
+.theme-btn.active{border-color:var(–gold);background:rgba(201,162,39,.1)}.theme-btn:hover{border-color:var(–gold)}
+.btn-reset{width:100%;padding:12px;background:transparent;border:1px solid var(–red);color:var(–red);border-radius:10px;font-family:var(–f4);font-size:.75rem;cursor:pointer;margin-top:20px}
+
+/* Confirmation commande validée */
+.order-confirmed{text-align:center;padding:20px;background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(52,211,153,.08));border:1px solid rgba(16,185,129,.3);border-radius:12px;margin-bottom:12px}
+.order-confirmed-icon{font-size:3rem;margin-bottom:10px}
+.order-confirmed-text{color:var(–green);font-weight:600;font-size:1rem}
+.order-confirmed-sub{color:var(–txt2);font-size:.8rem;margin-top:6px}
+</style></head><body>
+
+<!-- NETLIFY FORM (invisible, pour enregistrement) -->
+
+<form name="messages-plats" method="POST" data-netlify="true" style="display:none">
+  <input type="hidden" name="form-name" value="messages-plats">
+  <input type="text" name="nom-du-plat">
+  <textarea name="message"></textarea>
+</form>
+
+<div id="app"></div>
+<script>
+const ADMIN_CODE = 'aurele2024';
+
+const DeviceDetect = {
+isIOS: () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === ‘MacIntel’ && navigator.maxTouchPoints > 1),
+isAndroid: () => /Android/.test(navigator.userAgent),
+getARFormat: () => DeviceDetect.isIOS() ? ‘usdz’ : ‘glb’
+};
+
+const Theme = {
+KEY: ‘menu_theme’,
+get: () => localStorage.getItem(‘menu_theme’) || ‘dark’,
+set: (mode) => { localStorage.setItem(‘menu_theme’, mode); document.body.classList.toggle(‘light-mode’, mode === ‘light’); },
+init: () => { document.body.classList.toggle(‘light-mode’, Theme.get() === ‘light’); }
+};
+
+const Cart = {
+KEY: ‘menu_cart’,
+get() { try { return JSON.parse(localStorage.getItem(this.KEY)) || {}; } catch { return {}; } },
+save(cart) { localStorage.setItem(this.KEY, JSON.stringify(cart)); },
+set(id, qty) { const c = this.get(); if (qty > 0) c[id] = qty; else delete c[id]; this.save(c); },
+clear() { localStorage.removeItem(this.KEY); },
+getQty(id) { return this.get()[id] || 0; },
+getTotal() {
+const c = this.get(); let count = 0, total = 0;
+Object.entries(c).forEach(([id, qty]) => { const dish = g(id); if (dish) { count += qty; total += qty * parseFloat(dish.p); } });
+return { count, total };
+},
+getItems() { return Object.entries(this.get()).map(([id, qty]) => ({ …g(id), qty })).filter(d => d.id); }
+};
+
+const Featured = {
+KEY: ‘menu_featured’,
+get: () => localStorage.getItem(‘menu_featured’) || null,
+set: (id) => { if (id) localStorage.setItem(‘menu_featured’, id); else localStorage.removeItem(‘menu_featured’); },
+toggle: (id) => { Featured.get() === id ? Featured.set(null) : Featured.set(id); }
+};
+
+const Feedback = {
+KEY: ‘menu_feedback’,
+get() { try { return JSON.parse(localStorage.getItem(this.KEY)) || []; } catch { return []; } },
+add(dishId, message) {
+const data = this.get();
+data.unshift({ dishId, message, time: new Date().toISOString(), read: false });
+localStorage.setItem(this.KEY, JSON.stringify(data.slice(0, 50)));
+},
+markRead() { const data = this.get().map(f => ({ …f, read: true })); localStorage.setItem(this.KEY, JSON.stringify(data)); },
+hasNew() { return this.get().some(f => !f.read); },
+clear() { localStorage.removeItem(this.KEY); }
+};
+
+const Analytics = {
+KEY: ‘menu_analytics’,
+get() { try { return JSON.parse(localStorage.getItem(this.KEY)) || this.init(); } catch { return this.init(); } },
+init() { return { views: {}, ar3d: {}, arPlace: {}, orders: [], daily: {}, hourly: {}, ordersTonight: {}, firstVisit: new Date().toISOString(), lastVisit: new Date().toISOString(), totalRevenue: 0 }; },
+save(data) { data.lastVisit = new Date().toISOString(); localStorage.setItem(this.KEY, JSON.stringify(data)); },
+track(type, dishId) {
+const data = this.get();
+const today = new Date().toISOString().split(‘T’)[0];
+const hour = new Date().getHours();
+if (!data[type]) data[type] = {};
+data[type][dishId] = (data[type][dishId] || 0) + 1;
+if (!data.daily[today]) data.daily[today] = { views: 0, ar3d: 0, arPlace: 0, orders: 0 };
+if (data.daily[today][type] !== undefined) data.daily[today][type]++;
+if (!data.hourly) data.hourly = {};
+if (!data.hourly[hour]) data.hourly[hour] = 0;
+if (type === ‘ar3d’) data.hourly[hour]++;
+this.save(data);
+},
+trackOrder(items, total) {
+const data = this.get();
+const today = new Date().toISOString().split(‘T’)[0];
+if (!data.orders) data.orders = [];
+data.orders.push({ date: new Date().toISOString(), items, total });
+if (!data.daily[today]) data.daily[today] = { views: 0, ar3d: 0, arPlace: 0, orders: 0 };
+data.daily[today].orders++;
+data.totalRevenue = (data.totalRevenue || 0) + total;
+if (!data.ordersTonight) data.ordersTonight = {};
+items.forEach(item => { data.ordersTonight[item.id] = (data.ordersTonight[item.id] || 0) + item.qty; });
+this.save(data);
+},
+getOrdersTonight(dishId) { const data = this.get(); return (data.ordersTonight?.[dishId] || 0) + Math.floor(Math.random() * 8) + 5; },
+getTotalScans() { const data = this.get(); return Object.values(data.ar3d || {}).reduce((a, b) => a + b, 0); },
+getStats() {
+const data = this.get();
+const allDishes = […M.s, …M.m, …M.d];
+const totalViews = Object.values(data.views || {}).reduce((a, b) => a + b, 0);
+const totalAR3D = Object.values(data.ar3d || {}).reduce((a, b) => a + b, 0);
+const totalARPlace = Object.values(data.arPlace || {}).reduce((a, b) => a + b, 0);
+const totalOrders = (data.orders || []).length;
+const estimatedSurplus = totalARPlace * 12 * 0.18;
+const dishStats = allDishes.map(d => ({
+id: d.id, name: D.fr.p[d.id]?.n || d.id, views: data.views?.[d.id] || 0,
+ar3d: data.ar3d?.[d.id] || 0, arPlace: data.arPlace?.[d.id] || 0, hasAR: d.ar || false
+})).sort((a, b) => b.views - a.views);
+const last7Days = [];
+for (let i = 6; i >= 0; i–) { const date = new Date(); date.setDate(date.getDate() - i); const key = date.toISOString().split(‘T’)[0]; last7Days.push({ date: key, label: date.toLocaleDateString(‘fr’, { weekday: ‘short’ }), …(data.daily?.[key] || { views: 0, ar3d: 0, arPlace: 0, orders: 0 }) }); }
+const hourlyData = []; for (let h = 0; h < 24; h++) hourlyData.push(data.hourly?.[h] || 0);
+const conversionRate = totalViews > 0 ? Math.round((totalAR3D / totalViews) * 100) : 0;
+return { totalViews, totalAR3D, totalARPlace, totalOrders, estimatedSurplus, conversionRate, dishStats, last7Days, hourlyData };
+},
+reset() { localStorage.removeItem(this.KEY); }
+};
+
+// COOKING LEVELS - “Très cuit” avec couleur PLUS CLAIRE
+const COOKING_LEVELS = [
+{ id: ‘bleu’, label: ‘Bleu’, temp: ‘45-50°C’, color: ‘#ff6b6b’, desc: ‘Très saignant, cœur froid’ },
+{ id: ‘saignant’, label: ‘Saignant’, temp: ‘50-55°C’, color: ‘#e85d4c’, desc: ‘Rouge vif, juteux’ },
+{ id: ‘a-point’, label: ‘À point’, temp: ‘55-60°C’, color: ‘#b84a3a’, desc: ‘Rosé, équilibré’ },
+{ id: ‘bien-cuit’, label: ‘Bien cuit’, temp: ‘65-70°C’, color: ‘#8b4533’, desc: ‘Brun, ferme’ },
+{ id: ‘tres-cuit’, label: ‘Très cuit’, temp: ‘70°C+’, color: ‘#a67c52’, desc: ‘Aucune trace rose’ }
+];
+
+const ORIGINS = {
+boeuf: { region: ‘Limousin, France’, farm: ‘Élevage Dupont’, label: ‘’, detail: ‘Race Limousine, élevée en plein air, maturation 21 jours’ },
+carpaccio: { region: ‘Normandie, France’, farm: ‘Pêcherie de Granville’, label: ‘’, detail: ‘Saint-Jacques sauvages, pêchées à la main par plongeurs’ },
+burrata: { region: ‘Pouilles, Italie’, farm: ‘Caseificio Ferrante’, label: ‘’, detail: ‘Lait de bufflonne, fabrication artisanale quotidienne’ },
+tiramisu: { region: ‘Vénétie, Italie’, farm: ‘Recette traditionnelle’, label: ‘Fait maison • Sans alcool’, detail: ‘Mascarpone frais, café Lavazza, œufs fermiers’ },
+fondant: { region: ‘Notre cuisine’, farm: ‘Recette du chef’, label: ‘Fait maison’, detail: ‘Chocolat Valrhona 70%, beurre AOP, œufs fermiers’ },
+pates: { region: ‘Notre cuisine’, farm: ‘Fabrication quotidienne’, label: ‘Fait maison’, detail: ‘Pâtes fraîches pétries chaque matin, pesto basilic frais’ }
+};
+
+const BADGES = [
+{ scans: 100, emoji: ‘🥉’, name: ‘Débutant’ },
+{ scans: 500, emoji: ‘🥈’, name: ‘Amateur’ },
+{ scans: 1000, emoji: ‘🥇’, name: ‘Expert’ },
+{ scans: 3000, emoji: ‘🏆’, name: ‘Champion’ },
+{ scans: 5000, emoji: ‘👑’, name: ‘Légende’ }
+];
+
+const D={fr:{tag:‘Cuisine Raffinée’,sec:{s:‘Entrées’,m:‘Plats’,d:‘Desserts’},ui:{ar:‘👁️ Voir en réalité augmentée’,btn:‘Voir sur ma table’,hint:‘Faites pivoter puis placez sur votre table’,go:‘Placer sur ma table’,loading:‘Chargement 3D…’,add:‘Ajouter’,cart:‘Voir ma commande’,items:‘article(s)’,order:‘Ma Commande’,total:‘Total’,feedback:‘Un détail manque à ce plat ?’,tonight:‘Commandé %n fois ce soir’,orderHint:‘Montrez ce récap au serveur pour passer commande’,validate:‘✓ Valider ma commande’,validated:‘Commande validée !’,validatedSub:‘Montrez cet écran au serveur’},p:{burrata:{n:‘Burrata Crémeuse’,d:‘Roquette, tomates cerises, ciboulette, balsamique, focaccia’,f:‘Notre burrata crémeuse des Pouilles sur lit de roquette fraîche et tomates cerises.’},carpaccio:{n:‘Carpaccio de Saint-Jacques’,d:‘Saint-Jacques, suprêmes d'agrumes, huile d'olive, fleur de sel’,f:‘Fines tranches de Saint-Jacques de Normandie en rosace.’},pates:{n:‘Pâtes Jambon Pesto’,d:‘Pâtes fraîches, jambon, sauce pesto crémeuse, gratiné doré’,f:‘Pâtes fraîches au jambon, nappées d'une sauce crémeuse au pesto de basilic.’},risotto:{n:‘Risotto Champignons’,d:‘Riz carnaroli, champignons poêlés, parmesan, herbes’,f:‘Risotto onctueux au riz carnaroli, garni de champignons caramélisés.’},boeuf:{n:‘Filet de Bœuf Rossini’,d:‘Filet rosé, foie gras poêlé, sauce au vin, purée’,f:‘Filet de bœuf maturé cuit rosé, couronné de foie gras poêlé.’},tiramisu:{n:‘Tiramisu Traditionnel’,d:‘Mascarpone, biscuits café, cacao, chantilly’,f:‘Tiramisu vénitien authentique. Couches de mascarpone fouetté.’},fondant:{n:‘Fondant Chocolat’,d:‘Cœur coulant chocolat noir, glace vanille, chantilly’,f:‘Fondant au chocolat noir intense avec cœur coulant.’}}},nl:{tag:‘Verfijnde Keuken’,sec:{s:‘Voorgerechten’,m:‘Hoofdgerechten’,d:‘Desserts’},ui:{ar:‘👁️ Bekijk in AR’,btn:‘Bekijk op mijn tafel’,hint:‘Draai en plaats op uw tafel’,go:‘Plaats op mijn tafel’,loading:‘3D laden…’,add:‘Toevoegen’,cart:‘Bekijk bestelling’,items:‘artikel(en)’,order:‘Mijn Bestelling’,total:‘Totaal’,feedback:‘Ontbreekt er iets?’,tonight:’%n keer besteld vanavond’,orderHint:‘Toon dit aan de ober om te bestellen’,validate:‘✓ Bestelling bevestigen’,validated:‘Bestelling bevestigd!’,validatedSub:‘Toon dit scherm aan uw ober’},p:{burrata:{n:‘Romige Burrata’,d:‘Rucola, kerstomaten, bieslook, balsamico’,f:‘Romige burrata uit Apulië.’},carpaccio:{n:‘Coquilles Carpaccio’,d:‘Coquilles, citrus, olijfolie’,f:‘Flinterdunne coquilles.’},pates:{n:‘Ham Pesto Pasta’,d:‘Verse pasta, ham, pestosaus’,f:‘Verse pasta met pesto.’},risotto:{n:‘Champignon Risotto’,d:‘Carnaroli rijst, champignons’,f:‘Romige risotto.’},boeuf:{n:‘Ossenhaas Rossini’,d:‘Roze ossenhaas, foie gras’,f:‘Gerijpte ossenhaas.’},tiramisu:{n:‘Traditionele Tiramisu’,d:‘Mascarpone, koffiekoekjes’,f:‘Authentieke tiramisu.’},fondant:{n:‘Chocolade Fondant’,d:‘Smeltend hart’,f:‘Chocolade fondant.’}}},en:{tag:‘Fine Dining’,sec:{s:‘Starters’,m:‘Mains’,d:‘Desserts’},ui:{ar:‘👁️ View in AR’,btn:‘View on my table’,hint:‘Rotate then place’,go:‘Place on table’,loading:‘Loading 3D…’,add:‘Add’,cart:‘View order’,items:‘item(s)’,order:‘My Order’,total:‘Total’,feedback:‘Something missing?’,tonight:‘Ordered %n times tonight’,orderHint:‘Show this to your server to order’,validate:‘✓ Confirm order’,validated:‘Order confirmed!’,validatedSub:‘Show this screen to your server’},p:{burrata:{n:‘Creamy Burrata’,d:‘Arugula, tomatoes, chives’,f:‘Creamy burrata.’},carpaccio:{n:‘Scallop Carpaccio’,d:‘Scallops, citrus, olive oil’,f:‘Paper-thin scallops.’},pates:{n:‘Ham Pesto Pasta’,d:‘Fresh pasta, ham, pesto’,f:‘Fresh pasta with pesto.’},risotto:{n:‘Mushroom Risotto’,d:‘Carnaroli rice, mushrooms’,f:‘Velvety risotto.’},boeuf:{n:‘Beef Filet Rossini’,d:‘Pink filet, foie gras’,f:‘Aged beef filet.’},tiramisu:{n:‘Traditional Tiramisu’,d:‘Mascarpone, coffee biscuits’,f:‘Authentic tiramisu.’},fondant:{n:‘Chocolate Fondant’,d:‘Molten center’,f:‘Chocolate fondant.’}}}};
+const M={s:[{id:‘burrata’,p:‘18’,img:‘burrata.jpg’},{id:‘carpaccio’,p:‘24’,img:‘carpaccio.jpg’}],m:[{id:‘pates’,p:‘26’,img:‘pates.png’,ar:1,glb:‘pates-3d.glb’,usdz:‘pates-3d.usdz’},{id:‘risotto’,p:‘28’,img:‘risotto.jpg’},{id:‘boeuf’,p:‘45’,img:‘boeuf.jpg’}],d:[{id:‘tiramisu’,p:‘14’,img:‘tiramisu.png’},{id:‘fondant’,p:‘16’,img:‘fondant.jpg’}]};
+
+let L=localStorage.getItem(‘lang’)||‘fr’,V=‘menu’,S=null,adminMode=false,orderModal=false,feedbackModal=false,cookingLevel=2,orderValidated=false;
+const t=k=>k.split(’.’).reduce((o,i)=>o?.[i],D[L])||k,g=id=>[…M.s,…M.m,…M.d].find(x=>x.id===id);
+const ico={back:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>’,x:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>’,plus:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>’,check:’<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>’};
+
+const card = d => {
+const qty = Cart.getQty(d.id);
+const isFeatured = Featured.get() === d.id;
+const ordersTonight = Analytics.getOrdersTonight(d.id);
+return `<div class="card ${isFeatured ? 'featured' : ''}"> <div class="card-in" onclick="showDish('${d.id}')"> <div class="card-img"><img src="${d.img}" alt="" loading="lazy"></div> <div class="card-body"> <div class="card-top"><div class="card-name">${t('p.'+d.id+'.n')}</div><div class="card-price">€${d.p}</div></div> <div class="card-desc">${t('p.'+d.id+'.d')}</div> </div> </div> ${d.ar ? `<div class="card-ar-btn" onclick="event.stopPropagation();S='${d.id}';showAR()"><span>${t(‘ui.ar’)}</span></div><div class="social-proof">${t(‘ui.tonight’).replace(’%n’, ordersTonight)}</div>`: ''} <div class="card-actions"> <div class="qty-ctrl"> <button class="qty-btn minus" onclick="event.stopPropagation();updateQty('${d.id}',-1)">−</button> <span class="qty-num">${qty}</span> <button class="qty-btn" onclick="event.stopPropagation();updateQty('${d.id}',1)">+</button> </div> <button class="btn-add ${qty > 0 ? 'added' : ''}" onclick="event.stopPropagation();updateQty('${d.id}',1)">${ico.plus}<span>${qty > 0 ?`${qty}x €${(qty * parseFloat(d.p)).toFixed(0)}` : t(‘ui.add’)}</span></button>
+</div>
+
+  </div>`;
+};
+
+const sec = (k, arr) => {
+const featured = Featured.get();
+const sorted = […arr].sort((a, b) => (b.id === featured ? 1 : 0) - (a.id === featured ? 1 : 0));
+return `<div class="sec"><div class="sec-h"><div class="sec-l"></div><div class="sec-t">${t('sec.'+k)}</div><div class="sec-l"></div></div><div class="cards">${sorted.map(card).join('')}</div></div>`;
+};
+
+const menu = () => `<header class="hdr"><div class="hdr-in"><div class="logo" id="logo-tap">Maison Aurèle<span>${t('tag')}</span></div><nav class="lang"><button class="${L==='fr'?'on':''}" onclick="setL('fr')">🇫🇷</button><button class="${L==='nl'?'on':''}" onclick="setL('nl')">🇳🇱</button><button class="${L==='en'?'on':''}" onclick="setL('en')">🇬🇧</button></nav></div></header><main class="main">${sec('s',M.s)}${sec('m',M.m)}${sec('d',M.d)}</main>`;
+
+const cartBar = () => {
+const { count, total } = Cart.getTotal();
+return `<div class="cart-bar ${count > 0 ? 'show' : ''}"><div class="cart-bar-in"><div class="cart-info"><div class="cart-count">${count} ${t('ui.items')}</div><div class="cart-total">€${total.toFixed(2)}</div></div><button class="btn-cart" onclick="openOrder()">${t('ui.cart')}</button></div></div>`;
+};
+
+const orderModalHTML = () => {
+const items = Cart.getItems();
+const { total } = Cart.getTotal();
+return `<div class="order-modal ${orderModal ? 'open' : ''}" onclick="if(event.target===this)closeOrder()"> <div class="order-content"> <div class="order-hdr"><div class="order-title">🍽️ ${t('ui.order')}</div><button class="btn-x" onclick="closeOrder()">${ico.x}</button></div> <div class="order-body"> ${orderValidated ? `<div class="order-confirmed">
+<div class="order-confirmed-icon">✅</div>
+<div class="order-confirmed-text">${t(‘ui.validated’)}</div>
+<div class="order-confirmed-sub">${t(‘ui.validatedSub’)}</div>
+</div>`: ''} ${items.length === 0 ? '<p style="color:var(--txt2);text-align:center;padding:20px;">Panier vide</p>' : items.map(d =>`<div class="order-item"><div class="order-item-qty">${d.qty}</div><div class="order-item-name">${t(‘p.’+d.id+’.n’)}</div><div class="order-item-price">€${(d.qty * parseFloat(d.p)).toFixed(0)}</div></div>`).join('')} </div> <div class="order-footer"> <div class="order-total"><span class="order-total-label">${t('ui.total')}</span><span class="order-total-val">€${total.toFixed(2)}</span></div> ${!orderValidated ? `<div class="order-hint">📋 ${t(‘ui.orderHint’)}</div>
+<button class="btn-validate" onclick="validateOrder()">${t(‘ui.validate’)}</button>` : ‘’}
+<button class="btn-clear" onclick="clearCart()">🗑️ Vider le panier</button>
+</div>
+</div>
+
+  </div>`;
+};
+
+const dtl = () => {
+const d = g(S);
+if (!d) return ‘<div class="dtl"></div>’;
+const hasOrigin = ORIGINS[d.id];
+const hasCooking = d.id === ‘boeuf’;
+const cooking = COOKING_LEVELS[cookingLevel];
+const ordersTonight = Analytics.getOrdersTonight(d.id);
+const qty = Cart.getQty(d.id);
+
+return `<div class="dtl ${V==='dtl'?'open':''}">
+<div class="dtl-hero"><img src="${d.img}" alt=""><button class="btn-back" onclick="goBack()">${ico.back}</button></div>
+<div class="dtl-body">
+<div class="dtl-name">${t(‘p.’+d.id+’.n’)}</div>
+<div class="dtl-price">€${d.p}</div>
+<div class="dtl-line"></div>
+<div class="dtl-desc">${t(‘p.’+d.id+’.f’)}</div>
+
+```
+  <!-- NOUVEAU: Section Ajouter au panier -->
+  <div class="dtl-cart-section">
+    <div class="dtl-cart-row">
+      <div class="dtl-qty-ctrl">
+        <button class="dtl-qty-btn minus" onclick="updateQty('${d.id}',-1)">−</button>
+        <span class="dtl-qty-num">${qty}</span>
+        <button class="dtl-qty-btn" onclick="updateQty('${d.id}',1)">+</button>
+      </div>
+      <button class="dtl-btn-add ${qty > 0 ? 'added' : ''}" onclick="updateQty('${d.id}',1)">${ico.plus}<span>${qty > 0 ? `${qty}x €${(qty * parseFloat(d.p)).toFixed(0)}` : t('ui.add')}</span></button>
+    </div>
+  </div>
+  
+  ${hasOrigin ? `<div class="origin-card">
+    <div class="origin-title">Origine & Traçabilité ${ORIGINS[d.id].label ? `<span class="origin-badge">${ORIGINS[d.id].label}</span>` : ''}</div>
+    <div class="origin-info"><strong>${ORIGINS[d.id].region}</strong><br>${ORIGINS[d.id].farm}<br><span style="color:var(--txt2);font-size:.8rem">${ORIGINS[d.id].detail}</span></div>
+  </div>` : ''}
+  
+  ${hasCooking ? `<div class="cooking-selector" id="cooking-section">
+    <div class="cooking-title">Choisir la cuisson</div>
+    <div class="cooking-slider" id="cooking-slider">
+      <div class="cooking-track"></div>
+      <div class="cooking-thumb" id="cooking-thumb" style="left:${(cookingLevel / 4) * 100}%"></div>
+    </div>
+    <div class="cooking-labels" id="cooking-labels">${COOKING_LEVELS.map((c, i) => `<span class="${i === cookingLevel ? 'active' : ''}" data-level="${i}">${c.label}</span>`).join('')}</div>
+    <div class="cooking-preview" id="cooking-preview">
+      <div class="cooking-preview-text" style="color:${cooking.color}">● ${cooking.label} — ${cooking.desc}</div>
+      <div class="cooking-preview-temp">${cooking.temp}</div>
+    </div>
+  </div>` : ''}
+  
+  ${d.ar ? `<button class="btn-ar" onclick="showAR()">${t('ui.btn')}</button><div class="social-proof" style="margin-top:8px">${t('ui.tonight').replace('%n', ordersTonight)}</div>` : ''}
+  
+  <button class="feedback-btn" onclick="openFeedback()">💬 ${t('ui.feedback')}</button>
+</div>
+```
+
+  </div>`;
+};
+
+const feedbackModalHTML = () => {
+const d = g(S);
+return `<div class="feedback-modal ${feedbackModal ? 'open' : ''}" onclick="if(event.target===this)closeFeedback()">
+<div class="feedback-content">
+<div class="feedback-title">💬 Feedback - ${d ? t(‘p.’+d.id+’.n’) : ‘’}</div>
+<textarea class="feedback-textarea" id="feedback-text" placeholder="Décrivez ce qui manque ou pourrait être amélioré..."></textarea>
+<button class="feedback-send" onclick="sendFeedback()">Envoyer au chef</button>
+</div>
+
+  </div>`;
+};
+
+// AR VIEW avec LOADER TIMEOUT SÉCURITÉ
+const arv = () => {
+const d = g(S);
+if (!d || !d.ar) return ‘<div class="ar"></div>’;
+const format = DeviceDetect.getARFormat();
+return `<div class="ar ${V==='ar'?'open':''}"><div class="ar-wrap"><div class="ar-view"><model-viewer id="mv" src="${d.glb}" ios-src="${d.usdz}" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" scale="1 1 1" camera-controls auto-rotate shadow-intensity="1.2" exposure="1.1" camera-orbit="0deg 55deg 0.4m" min-camera-orbit="auto auto 0.25m" max-camera-orbit="auto auto 1m" environment-image="neutral" loading="eager"></model-viewer><div class="ar-loader" id="ar-loader"><div class="ar-spinner"></div><div class="ar-load-txt">${t('ui.loading')} (${format.toUpperCase()})</div><div class="ar-progress" id="ar-progress"></div></div><button class="btn-x" onclick="hideAR()">${ico.x}</button></div><div class="ar-btm"><div class="ar-hint">${t('ui.hint')}</div><button class="btn-go" onclick="launchAR()">${t('ui.go')}</button></div></div></div>`;
+};
+
+// ADMIN DASHBOARD - Ordre: Feedback > Surplus CA > Stats > Activité > Plat du jour > Top plats > Récompenses > Apparence > Reset
+const adminDash = () => {
+if (!adminMode) return ‘<div class="admin"></div>’;
+const stats = Analytics.getStats();
+const totalScans = Analytics.getTotalScans();
+const maxViews = Math.max(…stats.dishStats.map(d => d.views), 1);
+const maxHourly = Math.max(…stats.hourlyData, 1);
+const currentTheme = Theme.get();
+const feedbacks = Feedback.get();
+const allDishes = […M.s, …M.m, …M.d];
+
+return `<div class="admin ${adminMode?'open':''}">
+<div class="admin-hdr"><div class="admin-title">📊 DASHBOARD</div><button class="btn-x" onclick="closeAdmin()">${ico.x}</button></div>
+<div class="admin-body">
+<div class="live-badge"><div class="live-dot"></div>DONNÉES ACTUALISÉES EN TEMPS RÉEL</div>
+
+```
+  <!-- 1. Feedback clients (EN PREMIER) -->
+  <div class="feedback-section ${Feedback.hasNew() ? 'has-new' : ''}">
+    <div class="chart-title">💬 Feedback clients ${Feedback.hasNew() ? '<span style="color:var(--red)">● NOUVEAU</span>' : ''}</div>
+    <div class="feedback-list">${feedbacks.length === 0 ? '<div class="no-feedback">Aucun feedback pour le moment</div>' : feedbacks.slice(0, 5).map(f => `<div class="feedback-item"><div class="feedback-item-dish">${D.fr.p[f.dishId]?.n || f.dishId}</div><div class="feedback-item-msg">${f.message}</div><div class="feedback-item-time">${new Date(f.time).toLocaleString('fr')}</div></div>`).join('')}</div>
+    ${feedbacks.length > 0 ? `<div class="feedback-actions">
+      <button class="btn-mark-read" onclick="Feedback.markRead();render()">✓ Marquer lu</button>
+      <button class="btn-delete-feedback" onclick="deleteFeedbacks()">🗑️ Supprimer tout</button>
+    </div>` : ''}
+  </div>
+  
+  <!-- 2. Estimation surplus CA -->
+  <div class="revenue-card">
+    <div class="revenue-label">💰 Estimation surplus CA (AR)</div>
+    <div class="revenue-val">+€${stats.estimatedSurplus.toFixed(2)}</div>
+    <div class="revenue-sub">Basé sur <strong>+18%</strong> d'augmentation tickets AR</div>
+  </div>
+  
+  <!-- 3. Stats Grid (Vues, Scans 3D, Commandes validées, Conv. AR) -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-val">${stats.totalViews}</div><div class="stat-label">Vues</div></div>
+    <div class="stat-card"><div class="stat-val">${stats.totalAR3D}</div><div class="stat-label">Scans 3D</div></div>
+    <div class="stat-card"><div class="stat-val">${stats.totalOrders}</div><div class="stat-label">Commandes validées</div></div>
+    <div class="stat-card"><div class="stat-val">${stats.conversionRate}%</div><div class="stat-label">Conv. AR</div></div>
+  </div>
+  
+  <!-- 4. Activité scans AR -->
+  <div class="chart-sec">
+    <div class="chart-title">📡 Activité scans AR <span>Par heure</span></div>
+    <div class="timeline-chart">${stats.hourlyData.map((val, i) => `<div class="timeline-bar" style="height:${Math.max((val/maxHourly)*100, 5)}%" title="${i}h: ${val}"></div>`).join('')}</div>
+    <div class="timeline-labels"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>23h</span></div>
+  </div>
+  
+  <!-- 5. Plat du jour -->
+  <div class="featured-section">
+    <div class="featured-title">Plat du jour (urgence stock)</div>
+    <div class="featured-list">${allDishes.map(d => `<div class="featured-item"><span class="featured-item-name">${D.fr.p[d.id]?.n}</span><div class="featured-toggle ${Featured.get() === d.id ? 'on' : ''}" onclick="toggleFeatured('${d.id}')"></div></div>`).join('')}</div>
+  </div>
+  
+  <!-- 6. Top plats -->
+  <div class="chart-sec">
+    <div class="chart-title">🍽️ Top plats</div>
+    <div class="chart-bars">${stats.dishStats.slice(0,5).map((d,i)=>`<div class="chart-row"><div class="chart-name">${d.name}${i===0&&d.views>0?'<span class="top-badge">TOP</span>':''}</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:${(d.views/maxViews)*100}%"></div><div class="chart-num">${d.views}</div></div></div>`).join('')}</div>
+  </div>
+  
+  <!-- 7. Vos récompenses -->
+  <div class="badges-section">
+    <div class="badges-title">🏆 Vos récompenses (${totalScans} scans)</div>
+    <div class="badges-grid">${BADGES.map(b => `<div class="badge-item ${totalScans >= b.scans ? 'unlocked' : 'locked'}" title="${b.name}: ${b.scans} scans">${b.emoji}<span>${b.scans}</span></div>`).join('')}</div>
+  </div>
+  
+  <!-- 8. Apparence -->
+  <div class="theme-section">
+    <div class="theme-title">🎨 Apparence</div>
+    <div class="theme-toggle">
+      <button class="theme-btn ${currentTheme==='dark'?'active':''}" onclick="setTheme('dark')">🌙 Sombre</button>
+      <button class="theme-btn ${currentTheme==='light'?'active':''}" onclick="setTheme('light')">☀️ Clair</button>
+    </div>
+  </div>
+  
+  <!-- 9. Réinitialiser stats -->
+  <button class="btn-reset" onclick="resetStats()">🗑️ Réinitialiser stats</button>
+</div>
+```
+
+  </div>`;
+};
+
+const render = () => {
+document.getElementById(‘app’).innerHTML = menu() + cartBar() + orderModalHTML() + dtl() + feedbackModalHTML() + arv() + adminDash();
+setupLogoTap();
+setupCookingSlider();
+};
+
+function setupCookingSlider() {
+const slider = document.getElementById(‘cooking-slider’);
+const thumb = document.getElementById(‘cooking-thumb’);
+const labels = document.getElementById(‘cooking-labels’);
+const preview = document.getElementById(‘cooking-preview’);
+if (!slider || !thumb) return;
+
+let isDragging = false;
+
+const updateCookingUI = (level) => {
+const cooking = COOKING_LEVELS[level];
+thumb.style.left = (level / 4) * 100 + ‘%’;
+if (labels) {
+labels.querySelectorAll(‘span’).forEach((span, i) => {
+span.classList.toggle(‘active’, i === level);
+});
+}
+if (preview) {
+preview.innerHTML = `<div class="cooking-preview-text" style="color:${cooking.color}">● ${cooking.label} — ${cooking.desc}</div><div class="cooking-preview-temp">${cooking.temp}</div>`;
+}
+cookingLevel = level;
+};
+
+const handleMove = (clientX) => {
+const rect = slider.getBoundingClientRect();
+let percent = (clientX - rect.left) / rect.width;
+percent = Math.max(0, Math.min(1, percent));
+const level = Math.round(percent * 4);
+if (level !== cookingLevel) {
+updateCookingUI(level);
+}
+};
+
+thumb.addEventListener(‘mousedown’, (e) => { isDragging = true; e.preventDefault(); });
+document.addEventListener(‘mousemove’, (e) => { if (isDragging) handleMove(e.clientX); });
+document.addEventListener(‘mouseup’, () => { isDragging = false; });
+
+thumb.addEventListener(‘touchstart’, (e) => { isDragging = true; }, { passive: true });
+document.addEventListener(‘touchmove’, (e) => { if (isDragging) handleMove(e.touches[0].clientX); }, { passive: true });
+document.addEventListener(‘touchend’, () => { isDragging = false; });
+
+slider.addEventListener(‘click’, (e) => { if (e.target !== thumb) handleMove(e.clientX); });
+
+if (labels) {
+labels.addEventListener(‘click’, (e) => {
+const level = e.target.dataset?.level;
+if (level !== undefined) updateCookingUI(parseInt(level));
+});
+}
+}
+
+window.updateQty = (id, delta) => { Cart.set(id, Math.max(0, Cart.getQty(id) + delta)); render(); };
+window.openOrder = () => { orderModal = true; render(); };
+window.closeOrder = () => { orderModal = false; render(); };
+window.clearCart = () => { if(confirm(‘Vider le panier ?’)) { Cart.clear(); orderValidated = false; closeOrder(); } };
+
+// NOUVEAU: Valider la commande (enregistre dans Analytics pour le dashboard)
+window.validateOrder = () => {
+const items = Cart.getItems();
+const { total } = Cart.getTotal();
+if (items.length === 0) return;
+
+// Enregistrer la commande dans Analytics (pour le surplus CA)
+Analytics.trackOrder(items, total);
+
+// Marquer comme validé (garde l’écran visible)
+orderValidated = true;
+render();
+};
+
+window.openFeedback = () => { feedbackModal = true; render(); };
+window.closeFeedback = () => { feedbackModal = false; render(); };
+window.sendFeedback = () => {
+const text = document.getElementById(‘feedback-text’)?.value?.trim();
+if (!text) return alert(‘Veuillez écrire un message’);
+Feedback.add(S, text);
+alert(‘✅ Merci pour votre retour !’);
+closeFeedback();
+};
+
+// NOUVEAU: Supprimer tous les feedbacks
+window.deleteFeedbacks = () => {
+if (confirm(‘Supprimer tous les messages feedback ?’)) {
+Feedback.clear();
+render();
+}
+};
+
+window.toggleFeatured = (id) => { Featured.toggle(id); render(); };
+window.setTheme = (mode) => { Theme.set(mode); render(); };
+
+let tapCount = 0, tapTimer = null;
+function setupLogoTap() {
+const logo = document.getElementById(‘logo-tap’);
+if (!logo) return;
+logo.onclick = () => {
+tapCount++;
+clearTimeout(tapTimer);
+tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
+if (tapCount >= 5) { tapCount = 0; const code = prompt(‘🔐 Code:’); if (code === ADMIN_CODE) { adminMode = true; render(); } }
+};
+}
+
+window.setL = l => { L = l; localStorage.setItem(‘lang’, l); render(); };
+window.showDish = id => { S = id; V = ‘dtl’; document.body.style.overflow = ‘hidden’; Analytics.track(‘views’, id); render(); history.pushState({}, ‘’); };
+window.goBack = () => { V = ‘menu’; S = null; document.body.style.overflow = ‘’; render(); };
+window.showAR = () => { V = ‘ar’; if(S) Analytics.track(‘ar3d’, S); render(); history.pushState({}, ‘’); setTimeout(initModelViewer, 100); };
+window.hideAR = () => { V = ‘dtl’; render(); };
+window.launchAR = () => { if(S) Analytics.track(‘arPlace’, S); const v = document.getElementById(‘mv’); if (v) try { v.activateAR(); } catch (e) {} };
+window.closeAdmin = () => { adminMode = false; render(); };
+window.resetStats = () => { if (confirm(‘Reset stats ?’)) { Analytics.reset(); Feedback.clear(); render(); } };
+
+// MODEL VIEWER INIT avec TIMEOUT de sécurité pour cacher le loader
+window.initModelViewer = () => {
+const mv = document.getElementById(‘mv’);
+const loader = document.getElementById(‘ar-loader’);
+const progress = document.getElementById(‘ar-progress’);
+
+if (!mv) return;
+
+let loaded = false;
+
+// Event progress
+mv.addEventListener(‘progress’, (e) => {
+if (progress && e.detail.totalProgress) {
+progress.style.width = (e.detail.totalProgress * 100) + ‘%’;
+}
+});
+
+// Event load - cacher le loader
+mv.addEventListener(‘load’, () => {
+loaded = true;
+if (loader) {
+loader.classList.add(‘hidden’);
+}
+});
+
+// TIMEOUT de sécurité : cacher le loader après 5 secondes même si pas chargé
+setTimeout(() => {
+if (!loaded && loader) {
+loader.classList.add(‘hidden’);
+console.log(‘⚠️ Loader masqué par timeout’);
+}
+}, 5000);
+
+// Deuxième timeout plus court pour les cas où le modèle est déjà en cache
+setTimeout(() => {
+if (loader && mv.loaded) {
+loader.classList.add(‘hidden’);
+}
+}, 500);
+};
+
+window.addEventListener(‘popstate’, () => { if (V === ‘ar’) { V = ‘dtl’; render(); } else if (V === ‘dtl’) { V = ‘menu’; S = null; document.body.style.overflow = ‘’; render(); } });
+
+Theme.init();
+if (new URLSearchParams(window.location.search).get(‘admin’) === ADMIN_CODE) { adminMode = true; }
+render();
+console.log(‘📱’, DeviceDetect.isIOS() ? ‘iOS’ : DeviceDetect.isAndroid() ? ‘Android’ : ‘Other’, ‘| AR:’, DeviceDetect.getARFormat().toUpperCase());
+</script></body></html>
